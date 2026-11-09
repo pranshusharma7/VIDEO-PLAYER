@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniPlayer Studio Pro — Universal Video Engine</title>
+  <meta name="description" content="Ultra-smooth cinematic video player supporting YouTube, Apna College, HLS, direct MP4, 300% audio boost, and dual light/dark modes.">
+  
+  <!-- Modern Typography (Plus Jakarta Sans & JetBrains Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- HLS.js for .m3u8 streaming (Apna College, Coursera, LMS platforms) -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.8/dist/hls.min.js"></script>
+  
+  <!-- YouTube IFrame API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <!-- Dynamic Ambient Glow Canvas Backlight -->
+  <div class="ambient-glow-wrapper" id="ambientWrapper" aria-hidden="true">
+    <canvas id="ambientCanvas"></canvas>
+    <div class="ambient-overlay"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- Top Modern Navigation Bar -->
+    <header class="top-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3" fill="url(#brandGrad)"></polygon>
+            <defs>
+              <linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#00f0ff"/>
+                <stop offset="100%" stop-color="#8b5cf6"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">OMNI<span class="gradient-text">PLAYER</span></span>
+          <span class="brand-badge">STUDIO PRO</span>
+        </div>
+      </div>
+
+      <!-- Quick Action Badges & Theme Switcher -->
+      <div class="header-actions">
+        <!-- Light / Dark Mode Toggle Switcher -->
+        <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light / Dark Mode">
+          <div class="theme-toggle-slider">
+            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </div>
+          <span class="theme-label" id="themeLabelText">Dark Mode</span>
+        </button>
+
+        <button class="ghost-btn" id="btnGuideModal" title="Learn how to extract Apna College and website video links">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          <span>Course Extractor Guide</span>
+        </button>
+
+        <button class="ghost-btn" id="btnShortcutsModal" title="View keyboard shortcuts">
+          <kbd>⌨ Shortcuts</kbd>
+        </button>
+
+        <div class="ambient-toggle-pill" id="ambientToggleBtn" title="Toggle Dynamic Ambient Glow Backlight">
+          <div class="toggle-dot"></div>
+          <span>Ambient Glow</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Universal Stream Search & Smart Inspector Bar -->
+    <section class="url-input-section">
+      <div class="search-container">
+        <div class="search-prefix-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+          </svg>
+        </div>
+
+        <input 
+          type="text" 
+          id="videoUrlInput" 
+          placeholder="Paste ANY link: YouTube, Apna College / LMS (.m3u8), Vimeo, Direct MP4, or Web Stream URL..." 
+          autocomplete="off" 
+          spellcheck="false"
+        />
+
+        <!-- Smart Auto-Detection Badge that appears when user pastes/types -->
+        <div class="stream-type-tag hidden" id="streamTypeTag">
+          <span class="tag-dot"></span>
+          <span id="streamTypeLabel">Universal Stream</span>
+        </div>
+
+        <!-- Quick Clipboard Paste Button -->
+        <button class="paste-clip-btn" id="btnPasteClipboard" title="Paste from clipboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+          </svg>
+          <span>Paste</span>
+        </button>
+
+        <button class="action-btn primary-btn" id="btnLoadUrl">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          <span>Play Now</span>
+        </button>
+
+        <label class="action-btn secondary-btn file-upload-label" title="Play local video from your Mac/PC">
+          <input type="file" id="localFileInput" accept="video/*" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <span>Upload File</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Main Workspace Layout: Player + Study Hub Sidebar -->
+    <main class="player-layout" id="playerLayout">
+      <!-- Player Main Stage Column -->
+      <div class="player-stage-column">
+        <!-- The Ultra Omni Player Frame -->
+        <div class="omni-player-wrapper" id="playerWrapper" tabindex="0">
+          <!-- Notification Toast Overlay -->
+          <div class="toast-notification" id="playerToast"></div>
+
+          <!-- Video Elements Container -->
+          <div class="media-container" id="mediaContainer">
+            <!-- HTML5 Video Element (For HLS .m3u8, MP4, WebM, Local files) -->
+            <video 
+              id="html5Video" 
+              playsinline 
+              crossorigin="anonymous"
+              preload="metadata"
+            >
+              <track id="subtitlesTrack" kind="subtitles" srclang="en" label="English" default>
+            </video>
+
+            <!-- YouTube Iframe Embed Container -->
+            <div id="youtubePlayerContainer" class="youtube-container hidden"></div>
+
+            <!-- Generic Iframe Fallback Container (for protected embedded course pages) -->
+            <iframe id="genericIframe" class="generic-iframe hidden" allowfullscreen allow="autoplay; fullscreen; encrypted-media; picture-in-picture"></iframe>
+
+            <!-- Double-click Seek Gesture Ripple Zones (Left -10s, Right +10s) -->
+            <div class="seek-ripple-overlay" id="seekRippleOverlay">
+              <div class="seek-ripple ripple-left" id="rippleLeft">
+                <div class="ripple-icon">◀◀</div>
+                <span>-10s</span>
+              </div>
+              <div class="seek-ripple ripple-right" id="rippleRight">
+                <div class="ripple-icon">▶▶</div>
+                <span>+10s</span>
+              </div>
+            </div>
+
+            <!-- Big Center Play / Pause Indicator (Flash Animation) -->
+            <div class="center-action-indicator" id="centerIndicator">
+              <svg id="centerIndicatorIcon" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </div>
+
+            <!-- Buffering / Loading Spinner -->
+            <div class="buffering-spinner" id="bufferingSpinner">
+              <div class="spinner-ring"></div>
+              <span>Optimizing Stream...</span>
+            </div>
+
+            <!-- Drag & Drop Overlay -->
+            <div class="drag-drop-overlay" id="dragDropOverlay">
+              <div class="drag-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <h3>Drop video file here to play immediately</h3>
+                <p>Supports MP4, MKV, WebM, MOV, and AVI</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Custom Glassmorphic Floating Controls Bar -->
+          <div class="omni-controls-overlay" id="controlsOverlay">
+            <!-- Timeline Scrubber Container -->
+            <div class="timeline-container" id="timelineContainer">
+              <!-- Hover Timestamp Tooltip with preview bar -->
+              <div class="timeline-tooltip" id="timelineTooltip">
+                <span class="tooltip-time" id="tooltipTime">00:00</span>
+              </div>
+              
+              <!-- Timeline Track -->
+              <div class="timeline-track" id="timelineTrack">
+                <div class="timeline-buffer" id="timelineBuffer"></div>
+                <div class="timeline-progress" id="timelineProgress">
+                  <div class="timeline-scrubber-handle"></div>
+                </div>
+                <!-- Custom Bookmark dots dynamically injected here -->
+                <div class="bookmark-dots" id="bookmarkDotsContainer"></div>
+              </div>
+            </div>
+
+            <!-- Controls Row: Playback, Volume, Time, Tools, Fullscreen -->
+            <div class="controls-row">
+              <!-- Left Controls -->
+              <div class="controls-left">
+                <!-- Play / Pause Button -->
+                <button class="control-btn" id="btnPlayPause" title="Play / Pause (Space / K)">
+                  <svg id="iconPlay" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                  <svg id="iconPause" class="hidden" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="6" y="4" width="4" height="16"></rect>
+                    <rect x="14" y="4" width="4" height="16"></rect>
+                  </svg>
+                </button>
+
+                <!-- Backward 10s -->
+                <button class="control-btn" id="btnRewind10" title="Rewind 10s (Left Arrow / J)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 17l-5-5 5-5M18 17l-5-5 5-5"/>
+                  </svg>
+                  <span class="btn-micro-badge">-10</span>
+                </button>
+
+                <!-- Forward 10s -->
+                <button class="control-btn" id="btnForward10" title="Forward 10s (Right Arrow / L)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M13 17l5-5-5-5M6 17l5-5-5-5"/>
+                  </svg>
+                  <span class="btn-micro-badge">+10</span>
+                </button>
+
+                <!-- Volume and Pro Audio Booster -->
+                <div class="volume-group" id="volumeGroup">
+                  <button class="control-btn" id="btnMute" title="Mute / Unmute (M)">
+                    <svg id="iconVolHigh" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                    <svg id="iconVolMuted" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="1" y1="1" x2="23" y2="23"></line>
+                      <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                      <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                      <line x1="12" y1="19" x2="12" y2="23"></line>
+                      <line x1="8" y1="23" x2="16" y2="23"></line>
+                    </svg>
+                  </button>
+
+                  <div class="volume-slider-wrapper">
+                    <input type="range" id="volumeSlider" min="0" max="1" step="0.02" value="1">
+                  </div>
+
+                  <!-- 300% Audio Booster Toggle Pill -->
+                  <div class="boost-badge" id="boostBadge" title="Click to boost quiet lecture volume up to 300%">
+                    <span id="boostText">100%</span>
+                  </div>
+                </div>
+
+                <!-- Timecode Display -->
+                <div class="time-display">
+                  <span id="currentTime">00:00</span>
+                  <span class="time-sep">/</span>
+                  <span id="durationTime">00:00</span>
+                  <span class="live-pill hidden" id="liveBadge">LIVE</span>
+                </div>
+              </div>
+
+              <!-- Right Controls -->
+              <div class="controls-right">
+                <!-- Speed Menu Trigger -->
+                <div class="menu-dropdown-wrapper">
+                  <button class="control-btn" id="btnSpeedMenu" title="Playback Speed">
+                    <span id="currentSpeedText">1.0x</span>
+                  </button>
+                  <div class="dropdown-popover speed-popover" id="speedPopover">
+                    <div class="popover-title">Playback Speed</div>
+                    <div class="speed-grid">
+                      <button class="speed-option" data-speed="0.5">0.5x</button>
+                      <button class="speed-option" data-speed="0.75">0.75x</button>
+                      <button class="speed-option active" data-speed="1.0">1.0x</button>
+                      <button class="speed-option" data-speed="1.25">1.25x</button>
+                      <button class="speed-option" data-speed="1.5">1.5x</button>
+                      <button class="speed-option" data-speed="1.75">1.75x</button>
+                      <button class="speed-option" data-speed="2.0">2.0x</button>
+                      <button class="speed-option" data-speed="2.5">2.5x</button>
+                      <button class="speed-option" data-speed="3.0">3.0x</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Quality Switcher (for HLS / Adaptive streams) -->
+                <div class="menu-dropdown-wrapper" id="qualityMenuWrapper">
+                  <button class="control-btn" id="btnQualityMenu" title="Stream Quality / Resolution">
+                    <span id="currentQualityText">Auto</span>
+                  </button>
+                  <div class="dropdown-popover quality-popover" id="qualityPopover">
+                    <div class="popover-title">Resolution / Quality</div>
+                    <div class="quality-list" id="qualityList">
+                      <button class="quality-option active" data-level="-1">Auto (Best)</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Screenshot Snapshot Button -->
+                <button class="control-btn" id="btnScreenshot" title="Capture HD Frame Screenshot (S)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                </button>
+
+                <!-- Picture in Picture (PiP) -->
+                <button class="control-btn" id="btnPip" title="Picture in Picture (P)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                    <rect x="12" y="9" width="8" height="6" rx="1" fill="currentColor"></rect>
+                  </svg>
+                </button>
+
+                <!-- Theatre Mode Toggle -->
+                <button class="control-btn" id="btnTheatre" title="Cinema / Theatre Mode (T)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                    <line x1="9" y1="3" x2="9" y2="21"></line>
+                  </svg>
+                </button>
+
+                <!-- Fullscreen Toggle -->
+                <button class="control-btn" id="btnFullscreen" title="Fullscreen (F)">
+                  <svg id="iconEnterFs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                  </svg>
+                  <svg id="iconExitFs" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Metadata / Info Bar Below Player -->
+        <div class="video-meta-bar">
+          <div class="meta-main">
+            <h1 class="video-title" id="videoTitle">Ready to stream — Paste any link to start</h1>
+            <div class="video-badges" id="videoBadges">
+              <span class="badge badge-source" id="badgeSource">Universal Ready</span>
+              <span class="badge badge-res" id="badgeRes">HD</span>
+              <span class="badge badge-speed" id="badgeSpeed">1.0x</span>
+            </div>
+          </div>
+
+          <div class="meta-actions">
+            <!-- Add Subtitles Button -->
+            <label class="meta-action-btn" title="Add Subtitle file (.vtt or .srt)">
+              <input type="file" id="subtitlesFileInput" accept=".vtt,.srt" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <line x1="6" y1="15" x2="10" y2="15"></line>
+                <line x1="14" y1="15" x2="18" y2="15"></line>
+              </svg>
+              <span>Subtitles (+SRT)</span>
+            </label>
+
+            <!-- Copy Link / Share -->
+            <button class="meta-action-btn" id="btnCopyLink" title="Copy current video link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+              </svg>
+              <span>Share Link</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Workspace Hub: Study Notes + History Playlist -->
+      <aside class="workspace-sidebar" id="workspaceSidebar">
+        <!-- Tab Navigation with sliding indicator -->
+        <div class="sidebar-tabs">
+          <button class="tab-btn active" data-tab="notes">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+            <span>Lecture Notes (<span id="notesCount">0</span>)</span>
+          </button>
+          <button class="tab-btn" data-tab="history">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>Recent History</span>
+          </button>
+        </div>
+
+        <!-- Notes Panel -->
+        <div class="tab-content active" id="tabContentNotes">
+          <div class="notes-composer">
+            <div class="note-input-row">
+              <span class="note-time-tag" id="currentNoteTimestamp" title="Click to refresh timestamp">00:00</span>
+              <input 
+                type="text" 
+                id="noteTextInput" 
+                placeholder="Type note & press Enter (Auto-stamps timestamp)..." 
+                autocomplete="off"
+              />
+              <button class="add-note-btn" id="btnAddNote" title="Add Note at current time">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
+            </div>
+            <div class="note-tools">
+              <span class="note-helper">Tip: Click any note to jump directly to that moment!</span>
+              <button class="export-notes-btn" id="btnExportNotes" title="Download your notes as Markdown">
+                Export .md
+              </button>
+            </div>
+          </div>
+
+          <!-- Notes List -->
+          <div class="notes-list" id="notesList">
+            <div class="empty-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+              <p>No notes for this video yet.</p>
+              <span>Add timestamped notes while studying lectures!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- History Panel -->
+        <div class="tab-content" id="tabContentHistory">
+          <div class="history-header">
+            <span>Recently Played</span>
+            <button class="clear-history-btn" id="btnClearHistory">Clear All</button>
+          </div>
+          <div class="history-list" id="historyList">
+            <!-- Dynamically populated from localStorage -->
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- Modal 1: Apna College & Course Video Extractor Guide -->
+  <div class="modal-backdrop hidden" id="modalGuide">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-pill">PRO TIP FOR STUDENTS</span>
+          <h2>How to Play Any Video from Apna College or Course Websites</h2>
+        </div>
+        <button class="modal-close-btn" id="btnCloseGuide">✕</button>
+      </div>
+
+      <div class="modal-body guide-content">
+        <p class="guide-intro">
+          Apna College, Physics Wallah, Coursera, Udemy aur lagbhag har educational website videos ko <strong>HLS (.m3u8)</strong> ya direct stream format me deliver karti hai. Is player me unhe chalana 100% possible aur bahut aasan hai!
+        </p>
+
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-text">
+            <h4>Apna College / Website par lecture kholo</h4>
+            <p>Apne browser (Chrome, Brave, Edge, etc.) me course lecture page open karo aur video ko 2 second ke liye play karo.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-text">
+            <h4>Inspect DevTools kholo (F12)</h4>
+            <p>Keyboard par <kbd>F12</kbd> (Mac par <kbd>Cmd + Option + I</kbd>) dabao aur <strong>"Network"</strong> tab par click karo.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-text">
+            <h4>Filter box me likho: <code>m3u8</code> ya <code>mp4</code></h4>
+            <p>Network tab ke search/filter box me <strong>m3u8</strong> type karo. Aapko <code>master.m3u8</code> ya <code>index.m3u8</code> jaisi file dikhegi.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <div class="step-text">
+            <h4>Right click karke "Copy URL" karo</h4>
+            <p>Us file par Right Click karo &rarr; <strong>Copy</strong> &rarr; <strong>Copy link address</strong> (ya Copy URL).</p>
+          </div>
+        </div>
+
+        <div class="step-card highlight-step">
+          <div class="step-number">5</div>
+          <div class="step-text">
+            <h4>OmniPlayer me paste karo aur Play karo!</h4>
+            <p>OmniPlayer ke search bar me link paste karo. Player turant HLS.js engine use karke ultra-smooth 1080p stream shuru kar dega, sath me 300% Audio Booster aur Notes bhi milenge!</p>
+          </div>
+        </div>
+
+        <div class="guide-bonus">
+          <strong>Tip:</strong> Agar YouTube video hai toh direct YouTube link daal do, agar local downloaded file hai toh "Upload File" dabao!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Keyboard Shortcuts Reference -->
+  <div class="modal-backdrop hidden" id="modalShortcuts">
+    <div class="modal-card modal-compact">
+      <div class="modal-header">
+        <h2>⚡ Master Keyboard Shortcuts</h2>
+        <button class="modal-close-btn" id="btnCloseShortcuts">✕</button>
+      </div>
+      <div class="modal-body shortcuts-grid">
+        <div class="shortcut-item"><kbd>Space</kbd> / <kbd>K</kbd> <span>Play / Pause</span></div>
+        <div class="shortcut-item"><kbd>←</kbd> / <kbd>J</kbd> <span>Rewind 10 Seconds</span></div>
+        <div class="shortcut-item"><kbd>→</kbd> / <kbd>L</kbd> <span>Forward 10 Seconds</span></div>
+        <div class="shortcut-item"><kbd>Double Click (Left / Right)</kbd> <span>Seek -10s / +10s</span></div>
+        <div class="shortcut-item"><kbd>↑</kbd> / <kbd>↓</kbd> <span>Volume Up / Down</span></div>
+        <div class="shortcut-item"><kbd>M</kbd> <span>Mute / Unmute</span></div>
+        <div class="shortcut-item"><kbd>F</kbd> <span>Toggle Fullscreen</span></div>
+        <div class="shortcut-item"><kbd>T</kbd> <span>Theatre / Cinema Mode</span></div>
+        <div class="shortcut-item"><kbd>P</kbd> <span>Picture-in-Picture (PiP)</span></div>
+        <div class="shortcut-item"><kbd>S</kbd> <span>Snapshot / HD Screenshot</span></div>
+        <div class="shortcut-item"><kbd>N</kbd> <span>Jump to Note Input</span></div>
+        <div class="shortcut-item"><kbd>B</kbd> <span>Toggle 300% Audio Boost</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Logic -->
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

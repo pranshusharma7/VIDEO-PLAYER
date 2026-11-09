@@ -1,0 +1,25 @@
+{
+  "name": "omniplayer-pro",
+  "version": "1.0.0",
+  "description": "Ultra-smooth professional universal video player for YouTube, course websites (Apna College), HLS m3u8, direct MP4 and local videos",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "video-player",
+    "youtube",
+    "hls",
+    "m3u8",
+    "course-player",
+    "apna-college",
+    "ambient-glow",
+    "audio-booster"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.4.8"
+  }
+}
