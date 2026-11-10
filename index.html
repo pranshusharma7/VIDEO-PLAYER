@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OmniPlayer Studio Pro — Universal Video Engine</title>
-  <meta name="description" content="Ultra-smooth cinematic video player supporting YouTube, Apna College, HLS, direct MP4, 300% audio boost, and dual light/dark modes.">
+  <title>OmniPlayer — Premium Cinematic Streaming & Discovery</title>
+  <meta name="description" content="World-class cinematic movie discovery platform and universal video streaming engine.">
   
   <!-- Modern Typography (Plus Jakarta Sans & JetBrains Mono) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- HLS.js for .m3u8 streaming (Apna College, Coursera, LMS platforms) -->
+  <!-- HLS.js for .m3u8 streaming -->
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.8/dist/hls.min.js"></script>
   
   <!-- YouTube IFrame API -->
@@ -26,787 +26,1103 @@
     <div class="ambient-overlay"></div>
   </div>
 
-  <div class="app-container">
-    <!-- Top Modern Navigation Bar -->
-    <header class="top-header">
-      <div class="brand">
+  <div class="app-layout">
+    <!-- ======================================================================
+         1. PERSISTENT LEFT CINEMA SIDEBAR NAVIGATION
+         ====================================================================== -->
+    <aside class="platform-sidebar" id="platformSidebar">
+      <!-- Sidebar Brand Header -->
+      <a href="#movies" class="sidebar-header" title="OmniPlayer Cinema">
         <div class="brand-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="5 3 19 12 5 21 5 3" fill="url(#brandGrad)"></polygon>
-            <defs>
-              <linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#00f0ff"/>
-                <stop offset="100%" stop-color="#8b5cf6"/>
-              </linearGradient>
-            </defs>
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
           </svg>
         </div>
         <div class="brand-text">
-          <span class="brand-name">OMNI<span class="gradient-text">PLAYER</span></span>
-          <span class="brand-badge">STUDIO PRO</span>
+          <span class="brand-name">OMNI<span class="accent-name">PLAYER</span></span>
+          <span class="brand-badge">CINEMA PLATFORM</span>
         </div>
-      </div>
+      </a>
 
-      <!-- Quick Action Badges & Theme Switcher -->
-      <div class="header-actions">
-        <!-- Light / Dark Mode Toggle Switcher -->
-        <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light / Dark Mode">
-          <div class="theme-toggle-slider">
-            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="5"></circle>
-              <line x1="12" y1="1" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-          </div>
-          <span class="theme-label" id="themeLabelText">Dark Mode</span>
-        </button>
+      <!-- Navigation Links Menu -->
+      <nav class="sidebar-nav">
+        <a href="#home" class="nav-item" data-route="home" id="navItemHome">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>Home</span>
+        </a>
 
-        <button class="ghost-btn" id="btnGuideModal" title="Learn how to extract Apna College and website video links">
+        <a href="#movies" class="nav-item active" data-route="movies" id="navItemMovies">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+            <line x1="7" y1="2" x2="7" y2="22"></line>
+            <line x1="17" y1="2" x2="17" y2="22"></line>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <line x1="2" y1="7" x2="7" y2="7"></line>
+            <line x1="2" y1="17" x2="7" y2="17"></line>
+            <line x1="17" y1="17" x2="22" y2="17"></line>
+            <line x1="17" y1="7" x2="22" y2="7"></line>
+          </svg>
+          <span>Movies</span>
+        </a>
+
+        <a href="#tv" class="nav-item" data-route="tv" id="navItemTv">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+            <polyline points="17 2 12 7 7 2"></polyline>
+          </svg>
+          <span>TV Shows</span>
+        </a>
+
+        <a href="#anime" class="nav-item" data-route="anime" id="navItemAnime">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          <span>Anime</span>
+        </a>
+
+        <a href="#library" class="nav-item" data-route="library" id="navItemLibrary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span>My Library</span>
+          <span class="nav-counter" id="sidebarWatchlistCount">0</span>
+        </a>
+
+        <a href="#history" class="nav-item" data-route="history" id="navItemHistory">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10"></circle>
-            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
-          <span>Course Extractor Guide</span>
-        </button>
+          <span>Watch History</span>
+        </a>
 
-        <button class="ghost-btn" id="btnShortcutsModal" title="View keyboard shortcuts">
-          <kbd>⌨ Shortcuts</kbd>
-        </button>
-
-        <div class="ambient-toggle-pill" id="ambientToggleBtn" title="Toggle Dynamic Ambient Glow Backlight">
-          <div class="toggle-dot"></div>
-          <span>Ambient Glow</span>
-        </div>
-      </div>
-    </header>
-
-    <!-- Main Universal Stream Search & Smart Inspector Bar -->
-    <section class="url-input-section">
-      <div class="search-container">
-        <div class="search-prefix-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-          </svg>
-        </div>
-
-        <input 
-          type="text" 
-          id="videoUrlInput" 
-          placeholder="Paste URL (YouTube, .m3u8, MP4) OR Type any Movie Name (e.g. Fight Club, Interstellar)..." 
-          autocomplete="off" 
-          spellcheck="false"
-        />
-
-        <!-- Smart Auto-Detection Badge that appears when user pastes/types -->
-        <div class="stream-type-tag hidden" id="streamTypeTag">
-          <span class="tag-dot"></span>
-          <span id="streamTypeLabel">Universal Stream</span>
-        </div>
-
-        <!-- Browse Movies / Recommendations Shortcut Button -->
-        <button class="browse-movies-pill" id="btnBrowseMovies" type="button" title="Browse Top Recommended Movies">
-          <span class="pill-fire-icon">🍿</span>
-          <span>Recommendations</span>
-        </button>
-
-        <!-- Live Instant Movie Search Dropdown (Ultra Frosted Glass Floating over Player) -->
-        <div class="movie-search-dropdown hidden" id="movieSearchDropdown">
-          <div class="movie-results-header">
-            <div class="header-title-box">
-              <span class="header-pulse-gem"></span>
-              <span id="movieResultsTitle">🎬 Recommended Blockbusters — Click to Stream</span>
-            </div>
-            <div class="header-actions">
-              <span class="frosted-mode-pill">✨ Ultra Transparent</span>
-              <button class="close-results-btn" id="btnCloseMovieResults" type="button" title="Close recommendations">✕</button>
-            </div>
-          </div>
-
-          <!-- Quick Filter Category Tabs -->
-          <div class="movie-filter-bar" id="movieFilterBar">
-            <button class="movie-filter-btn active" data-filter="all" type="button">🔥 All Trending</button>
-            <button class="movie-filter-btn" data-filter="movie" type="button">🎬 Blockbusters</button>
-            <button class="movie-filter-btn" data-filter="tv" type="button">📺 Top Series</button>
-            <button class="movie-filter-btn" data-filter="top" type="button">⭐ 8.4+ Masterpieces</button>
-          </div>
-
-          <div class="movie-results-list" id="movieResultsList">
-            <!-- Dynamically populated movie cards with posters -->
-          </div>
-        </div>
-
-        <!-- Quick Clipboard Paste Button -->
-        <button class="paste-clip-btn" id="btnPasteClipboard" title="Paste from clipboard">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-          </svg>
-          <span>Paste</span>
-        </button>
-
-        <button class="action-btn primary-btn" id="btnLoadUrl">
+        <!-- USER REQUESTED: Dedicated option for YouTube & Local Device Videos -->
+        <a href="#studio" class="nav-item nav-item-studio" data-route="studio" id="navItemStudioPlayer">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="5 3 19 12 5 21 5 3"></polygon>
           </svg>
-          <span>Play Now</span>
-        </button>
+          <span>Studio Player</span>
+          <span class="nav-badge-pro">PRO / YT</span>
+        </a>
 
-        <label class="action-btn secondary-btn file-upload-label" title="Play local video from your Mac/PC">
-          <input type="file" id="localFileInput" accept="video/*" hidden>
+        <div class="nav-section-label">YOUR LIBRARY</div>
+        <a href="#favorites" class="nav-item" data-route="favorites" id="navItemFavorites">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <span>Favorites</span>
+          <span class="nav-counter" id="sidebarFavoritesCount">0</span>
+        </a>
+
+        <a href="#downloads" class="nav-item" data-route="downloads" id="navItemDownloads">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="17 8 12 3 7 8"></polyline>
-            <line x1="12" y1="3" x2="12" y2="15"></line>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
           </svg>
-          <span>Upload File</span>
-        </label>
+          <span>Downloads</span>
+        </a>
+
+        <a href="#playlists" class="nav-item" data-route="playlists" id="navItemPlaylists">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+          <span>Playlists</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Bottom: Go Premium Card matching Image -->
+      <div class="sidebar-footer">
+        <div class="vip-upgrade-box">
+          <div class="vip-badge-row">
+            <span class="vip-crown">👑</span>
+            <span class="vip-title">Go Premium</span>
+          </div>
+          <p class="vip-desc">Get ad-free experience, 4K quality and more.</p>
+          <button class="vip-upgrade-btn" id="btnVipUpgrade" type="button">Upgrade Now</button>
+        </div>
       </div>
-    </section>
+    </aside>
 
-    <!-- Main Workspace Layout: Player + Study Hub Sidebar -->
-    <main class="player-layout" id="playerLayout">
-      <!-- Player Main Stage Column -->
-      <div class="player-stage-column">
-        <!-- The Ultra Omni Player Frame -->
-        <div class="omni-player-wrapper" id="playerWrapper" tabindex="0">
-          <!-- Notification Toast Overlay -->
-          <div class="toast-notification" id="playerToast"></div>
+    <!-- ======================================================================
+         2. MAIN VIEWPORT (TOPBAR + DYNAMIC ROUTE VIEWS)
+         ====================================================================== -->
+    <div class="platform-main">
+      <!-- Sticky Top Navigation Bar -->
+      <header class="platform-topbar">
+        <!-- Mobile Drawer Toggle -->
+        <button class="mobile-menu-btn" id="btnMobileMenu" title="Toggle Navigation">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
 
-          <!-- Smart Resume Watch Floating Banner -->
-          <div class="resume-banner hidden" id="resumeBanner">
-            <div class="resume-info">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
-              <span>Resume playback from <strong id="resumeTimeText">00:00</strong>?</span>
-            </div>
-            <div class="resume-actions">
-              <button class="resume-confirm-btn" id="btnResumeYes">▶ Resume</button>
-              <button class="resume-dismiss-btn" id="btnResumeNo" title="Start from beginning">✕</button>
-            </div>
+        <!-- Global Smart Search Input with Floating Dropdown -->
+        <div class="global-search-wrapper">
+          <div class="global-search-box">
+            <svg class="search-lens-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input 
+              type="text" 
+              id="globalSearchInput" 
+              placeholder="Search for movies, series, actors..." 
+              autocomplete="off" 
+              spellcheck="false"
+            />
+            <button class="clear-search-btn hidden" id="btnClearSearch" type="button" title="Clear Search">✕</button>
+            <kbd class="search-shortcut-badge">⌘K</kbd>
           </div>
 
-          <!-- Video Elements Container -->
-          <div class="media-container" id="mediaContainer">
-            <!-- HTML5 Video Element (For HLS .m3u8, MP4, WebM, Local files) -->
-            <video 
-              id="html5Video" 
-              playsinline 
-              crossorigin="anonymous"
-              preload="metadata"
-            >
-              <track id="subtitlesTrack" kind="subtitles" srclang="en" label="English" default>
-            </video>
-
-            <!-- YouTube Stage Wrapper (Always permanent, handles overflow: hidden & cropping) -->
-            <div class="youtube-wrapper hidden" id="youtubeWrapper">
-              <div id="youtubePlayerContainer" class="youtube-player-frame"></div>
-              <div class="youtube-gesture-shield" id="youtubeShield" title="Click to Play/Pause, Double-click to Seek"></div>
+          <!-- Floating Smart Search Dropdown (Floats over the page) -->
+          <div class="smart-search-dropdown hidden" id="smartSearchDropdown">
+            <div class="search-dropdown-header">
+              <span id="searchDropdownTitle">🎬 Instant Movie Finder</span>
+              <button class="clear-search-btn" id="btnCloseSmartSearch" type="button">✕</button>
             </div>
-
-            <!-- Generic / Cinema Iframe Container (for Nxsha movie stream & embedded pages) -->
-            <iframe 
-              id="genericIframe" 
-              class="generic-iframe hidden" 
-              allowfullscreen 
-              allow="autoplay; fullscreen; encrypted-media; picture-in-picture; accelerometer; gyroscope"
-              referrerpolicy="origin"
-            ></iframe>
-
-            <!-- Double-click Seek Gesture Ripple Zones (Left -10s, Right +10s) -->
-            <div class="seek-ripple-overlay" id="seekRippleOverlay">
-              <div class="seek-ripple ripple-left" id="rippleLeft">
-                <div class="ripple-icon">◀◀</div>
-                <span>-10s</span>
-              </div>
-              <div class="seek-ripple ripple-right" id="rippleRight">
-                <div class="ripple-icon">▶▶</div>
-                <span>+10s</span>
-              </div>
+            <div class="search-dropdown-scroll" id="smartSearchContent">
+              <!-- Dynamically populated: Recent Searches, Trending, Results, Skeletons -->
             </div>
+          </div>
+        </div>
 
-            <!-- Big Center Play / Pause Indicator (Flash Animation) -->
-            <div class="center-action-indicator" id="centerIndicator">
-              <svg id="centerIndicatorIcon" viewBox="0 0 24 24" fill="currentColor">
-                <polygon points="5 3 19 12 5 21 5 3"></polygon>
-              </svg>
-            </div>
+        <!-- Topbar Right Profile & Action Utilities -->
+        <div class="topbar-actions">
+          <button class="topbar-bell-btn" id="btnNotifications" title="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="bell-notification-dot"></span>
+          </button>
 
-            <!-- Buffering / Loading Spinner -->
-            <div class="buffering-spinner" id="bufferingSpinner">
-              <div class="spinner-ring"></div>
-              <span>Optimizing Stream...</span>
-            </div>
+          <div class="topbar-profile-pill" id="topbarProfile" title="Pranshu - User Profile">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&fit=crop" alt="Pranshu" class="profile-avatar">
+            <span class="profile-name">Pranshu</span>
+            <svg class="profile-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
 
-            <!-- Video Completed Replay Overlay (Completely covers & blocks YouTube recommended video grid) -->
-            <div class="video-end-overlay hidden" id="videoEndOverlay">
-              <div class="end-card">
-                <div class="end-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="1 4 1 10 7 10"></polyline>
-                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
-                  </svg>
+          <!-- Hidden preserved action buttons for event listeners -->
+          <button class="topbar-action-btn hidden" id="topbarBtnPaste" type="button"></button>
+          <div class="ambient-toggle-pill hidden" id="ambientToggleBtn"><div class="toggle-dot"></div></div>
+          <button class="topbar-icon-btn hidden" id="btnGuideModal" type="button"></button>
+          <button class="topbar-icon-btn hidden" id="btnShortcutsModal" type="button"></button>
+        </div>
+      </header>
+
+      <!-- ======================================================================
+           PAGE VIEWS CONTAINER (SPA ROUTER)
+           ====================================================================== -->
+      <main class="page-views-container">
+
+        <!-- --------------------------------------------------------------------
+             VIEW 1: MOVIES DISCOVERY PAGE (#movies) — EXACT IMAGE REPLICA
+             -------------------------------------------------------------------- -->
+        <section id="viewMovies" class="page-view active">
+          <div class="movies-main-grid">
+            <!-- LEFT MAIN DISCOVERY FEED COLUMN -->
+            <div class="movies-feed-column">
+              <!-- Cinematic Hero Carousel Banner (John Wick Chapter 4 Featured) -->
+              <div class="movies-hero-banner" id="moviesHeroBanner">
+                <img id="heroBackdropImg" class="hero-backdrop-img" src="https://image.tmdb.org/t/p/w1280/h8gHn0OzRogL05h9Mec4V9u.jpg" alt="Hero Backdrop">
+                <div class="hero-overlay-vignette"></div>
+                <div class="hero-overlay-side"></div>
+
+                <div class="hero-content-wrap" id="heroContentWrap">
+                  <div class="hero-badge-row">
+                    <span class="hero-trending-pill">Trending Now</span>
+                  </div>
+                  <h1 class="hero-title" id="heroTitle">JOHN WICK<br><span class="hero-title-sub">CHAPTER 4</span></h1>
+                  <p class="hero-description" id="heroDescription">
+                    Baba Yaga returns. More intense. More deadly.
+                  </p>
+                  <div class="hero-meta-row" id="heroMetaRow">
+                    <span id="heroYearPill">📅 2023</span>
+                    <span class="meta-dot">•</span>
+                    <span id="heroGenresText">🎬 Action • Thriller</span>
+                    <span class="meta-dot">•</span>
+                    <span class="hero-star-pill" id="heroImdbPill">⭐ 8.0</span>
+                  </div>
+                  <div class="hero-actions-row">
+                    <button class="btn-hero-watch" id="btnHeroWatch" type="button">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                      </svg>
+                      <span>Watch Now</span>
+                    </button>
+                    <button class="btn-hero-watchlist" id="btnHeroWatchlist" type="button">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                      </svg>
+                      <span>Add to Watchlist</span>
+                    </button>
+                    <button class="btn-hero-more-info hidden" id="btnHeroMoreInfo" type="button"></button>
+                  </div>
                 </div>
-                <h3>Lecture Completed</h3>
-                <p id="endVideoTitle">Ready to Replay</p>
-                <div class="end-actions">
-                  <button class="action-btn primary-btn" id="btnReplayVideo">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                <!-- Slide counter & navigation controls matching image -->
+                <div class="hero-carousel-controls-bar">
+                  <span class="hero-slide-counter" id="heroSlideCounter">1 of 5</span>
+                  <button class="hero-arrow-circle" id="btnHeroPrev" title="Previous Movie">❮</button>
+                  <button class="hero-arrow-circle" id="btnHeroNext" title="Next Movie">❯</button>
+                </div>
+                <div class="hidden" id="heroDotsWrap"></div>
+              </div>
+
+              <!-- 1. Browse by Genre (Horizontal Capsule Carousel) -->
+              <section class="feed-section">
+                <div class="section-header-compact">
+                  <h2 class="section-title-clean">Browse by Genre <span class="header-chevron">›</span></h2>
+                </div>
+                <div class="genre-capsules-scroll" id="genresGrid">
+                  <!-- Populated by JS: Action, Drama, Comedy, Thriller, Sci-Fi, Horror, Romance, Crime -->
+                </div>
+              </section>
+
+              <!-- 2. Trending Movies Carousel -->
+              <section class="feed-section">
+                <div class="section-header-compact">
+                  <h2 class="section-title-clean">🔥 Trending Movies</h2>
+                  <button class="see-all-link section-see-all-btn" data-collection="trending" type="button">See All →</button>
+                </div>
+                <div class="carousel-wrapper">
+                  <button class="carousel-nav-btn prev" data-target="trendingCarousel">❮</button>
+                  <div class="carousel-scroll-track" id="trendingCarousel"></div>
+                  <button class="carousel-nav-btn next" data-target="trendingCarousel">❯</button>
+                </div>
+              </section>
+
+              <!-- 3. Recommended For You Carousel -->
+              <section class="feed-section">
+                <div class="section-header-compact">
+                  <h2 class="section-title-clean">✨ Recommended for You</h2>
+                  <button class="see-all-link section-see-all-btn" data-collection="recommended" type="button">See All →</button>
+                </div>
+                <div class="carousel-wrapper">
+                  <button class="carousel-nav-btn prev" data-target="recommendedCarousel">❮</button>
+                  <div class="carousel-scroll-track" id="recommendedCarousel"></div>
+                  <button class="carousel-nav-btn next" data-target="recommendedCarousel">❯</button>
+                </div>
+              </section>
+
+              <!-- Bottom Banner: Watch Anywhere, Anytime matching image -->
+              <div class="watch-anywhere-banner">
+                <div class="watch-anywhere-left">
+                  <div class="watch-brand-badge">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
                       <polygon points="5 3 19 12 5 21 5 3"></polygon>
                     </svg>
-                    <span>Replay Video</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Hero Welcome / Quick Stream Splash Screen -->
-            <div class="player-hero-splash" id="playerHeroSplash">
-              <div class="hero-splash-backdrop"></div>
-              <div class="hero-splash-content">
-                <div class="hero-splash-badge">
-                  <span class="hero-pulse-dot"></span>
-                  <span>OMNIPLAYER PRO • CINEMA ENGINE ACTIVE</span>
-                </div>
-                <h2 class="hero-splash-title">Next-Gen Universal Cinema Player</h2>
-                <p class="hero-splash-subtitle">Search any movie by name or paste YouTube / HLS course links to enjoy cinema-grade 4K playback</p>
-                
-                <div class="hero-quick-stream-box">
-                  <span class="hero-quick-label">⚡ Quick Stream Recommendations:</span>
-                  <div class="hero-quick-chips" id="heroQuickChips">
-                    <button class="hero-quick-chip" type="button" data-id="550" data-title="Fight Club (1999)" data-type="movie">
-                      <span class="chip-icon">🍿</span>
-                      <span class="chip-title">Fight Club</span>
-                      <span class="chip-rating">★ 8.4</span>
-                    </button>
-                    <button class="hero-quick-chip" type="button" data-id="157336" data-title="Interstellar (2014)" data-type="movie">
-                      <span class="chip-icon">🌌</span>
-                      <span class="chip-title">Interstellar</span>
-                      <span class="chip-rating">★ 8.4</span>
-                    </button>
-                    <button class="hero-quick-chip" type="button" data-id="27205" data-title="Inception (2010)" data-type="movie">
-                      <span class="chip-icon">🌀</span>
-                      <span class="chip-title">Inception</span>
-                      <span class="chip-rating">★ 8.4</span>
-                    </button>
-                    <button class="hero-quick-chip" type="button" data-id="155" data-title="The Dark Knight (2008)" data-type="movie">
-                      <span class="chip-icon">🦇</span>
-                      <span class="chip-title">The Dark Knight</span>
-                      <span class="chip-rating">★ 8.5</span>
-                    </button>
-                    <button class="hero-quick-chip" type="button" data-id="872585" data-title="Oppenheimer (2023)" data-type="movie">
-                      <span class="chip-icon">⚛️</span>
-                      <span class="chip-title">Oppenheimer</span>
-                      <span class="chip-rating">★ 8.1</span>
-                    </button>
+                  </div>
+                  <div class="watch-brand-info">
+                    <h3 class="watch-brand-title">Watch Anywhere, Anytime</h3>
+                    <p class="watch-brand-subtitle">Your favorite movies and shows, on any device.</p>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <!-- Hero Welcome / Quick Stream Splash Screen -->
-            <div class="player-hero-splash" id="playerHeroSplash">
-              <div class="hero-splash-backdrop"></div>
-              <div class="hero-splash-content">
-                <div class="hero-splash-badge">
-                  <span class="hero-pulse-dot"></span>
-                  <span>OMNIPLAYER PRO • CINEMA ENGINE ACTIVE</span>
+                <div class="watch-devices-icons">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" title="Mobile Phone"><rect x="7" y="2" width="10" height="20" rx="2" ry="2"></rect><line x1="11" y1="18" x2="13" y2="18"></line></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" title="Tablet / Laptop"><rect x="3" y="4" width="18" height="12" rx="2"></rect><line x1="2" y1="20" x2="22" y2="20"></line></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" title="Smart TV"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                 </div>
-                <h2 class="hero-splash-title">Next-Gen Universal Cinema Player</h2>
-                <p class="hero-splash-subtitle">Search any movie by name or paste YouTube / HLS course links to enjoy cinema-grade 4K playback</p>
-                
-                <div class="hero-quick-stream-box">
-                  <span class="hero-quick-label">⚡ Quick Stream Recommendations:</span>
-                  <div class="hero-quick-chips" id="heroQuickChips">
-                    <button class="hero-quick-chip" type="button" data-id="550" data-title="Fight Club (1999)" data-type="movie">
-                      <span class="chip-icon">🍿</span>
-                      <span class="chip-title">Fight Club</span>
-                      <span class="chip-rating">★ 8.4</span>
-                    </button>
-                    <button class="hero-quick-chip" type="button" data-id="157336" data-title="Interstellar (2014)" data-type="movie">
-                      <span class="chip-icon">🌌</span>
-                      <span class="chip-title">Interstellar</span>
-                      <span class="chip-rating">★ 8.4</span>
-                    </button>
-                    <button class="hero-quick-chip" type="button" data-id="27205" data-title="Inception (2010)" data-type="movie">
-                      <span class="chip-icon">🌀</span>
-                      <span class="chip-title">Inception</span>
-                      <span class="chip-rating">★ 8.4</span>
-                    </button>
-                    <button class="hero-quick-chip" type="button" data-id="155" data-title="The Dark Knight (2008)" data-type="movie">
-                      <span class="chip-icon">🦇</span>
-                      <span class="chip-title">The Dark Knight</span>
-                      <span class="chip-rating">★ 8.5</span>
-                    </button>
-                    <button class="hero-quick-chip" type="button" data-id="872585" data-title="Oppenheimer (2023)" data-type="movie">
-                      <span class="chip-icon">⚛️</span>
-                      <span class="chip-title">Oppenheimer</span>
-                      <span class="chip-rating">★ 8.1</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Drag & Drop Overlay -->
-            <div class="drag-drop-overlay" id="dragDropOverlay">
-              <div class="drag-box">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="17 8 12 3 7 8"></polyline>
-                  <line x1="12" y1="3" x2="12" y2="15"></line>
-                </svg>
-                <h3>Drop video file here to play immediately</h3>
-                <p>Supports MP4, MKV, WebM, MOV, and AVI</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Custom Glassmorphic Floating Controls Bar -->
-          <div class="omni-controls-overlay" id="controlsOverlay">
-            <!-- Timeline Scrubber Container -->
-            <div class="timeline-container" id="timelineContainer">
-              <!-- Hover Timestamp Tooltip with preview bar -->
-              <div class="timeline-tooltip" id="timelineTooltip">
-                <span class="tooltip-time" id="tooltipTime">00:00</span>
-              </div>
-              
-              <!-- Timeline Track -->
-              <div class="timeline-track" id="timelineTrack">
-                <div class="timeline-buffer" id="timelineBuffer"></div>
-                <div class="timeline-loop-range hidden" id="timelineLoopRange"></div>
-                <div class="timeline-progress" id="timelineProgress">
-                  <div class="timeline-scrubber-handle"></div>
-                </div>
-                <!-- Custom Bookmark dots dynamically injected here -->
-                <div class="bookmark-dots" id="bookmarkDotsContainer"></div>
-              </div>
-            </div>
-
-            <!-- Controls Row: Playback, Volume, Time, Tools, Fullscreen -->
-            <div class="controls-row">
-              <!-- Left Controls -->
-              <div class="controls-left">
-                <!-- Play / Pause Button -->
-                <button class="control-btn" id="btnPlayPause" title="Play / Pause (Space / K)">
-                  <svg id="iconPlay" viewBox="0 0 24 24" fill="currentColor">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                  </svg>
-                  <svg id="iconPause" class="hidden" viewBox="0 0 24 24" fill="currentColor">
-                    <rect x="6" y="4" width="4" height="16"></rect>
-                    <rect x="14" y="4" width="4" height="16"></rect>
-                  </svg>
+                <button class="btn-start-now" id="btnWatchAnywhereStart" onclick="navigate('studio')" type="button">
+                  <span>Start Now →</span>
                 </button>
+              </div>
 
-                <!-- Backward 10s -->
-                <button class="control-btn" id="btnRewind10" title="Rewind 10s (Left Arrow / J)">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M11 17l-5-5 5-5M18 17l-5-5 5-5"/>
-                  </svg>
-                  <span class="btn-micro-badge">-10</span>
-                </button>
+              <!-- Retained hidden discovery carousel tracks for See All collections -->
+              <div class="hidden" id="sectionContinueWatching">
+                <div id="topRatedCarousel"></div>
+                <div id="newReleasesCarousel"></div>
+                <div id="mostWatchedCarousel"></div>
+                <div id="awardWinningCarousel"></div>
+                <div id="continueWatchingCarousel"></div>
+              </div>
+            </div>
 
-                <!-- Forward 10s -->
-                <button class="control-btn" id="btnForward10" title="Forward 10s (Right Arrow / L)">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M13 17l5-5-5-5M6 17l5-5-5-5"/>
-                  </svg>
-                  <span class="btn-micro-badge">+10</span>
-                </button>
-
-                <!-- Volume and Pro Audio Booster -->
-                <div class="volume-group" id="volumeGroup">
-                  <button class="control-btn" id="btnMute" title="Mute / Unmute (M)">
-                    <svg id="iconVolHigh" viewBox="0 0 24 24" fill="currentColor">
-                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                    </svg>
-                    <svg id="iconVolMuted" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <line x1="1" y1="1" x2="23" y2="23"></line>
-                      <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
-                      <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
-                      <line x1="12" y1="19" x2="12" y2="23"></line>
-                      <line x1="8" y1="23" x2="16" y2="23"></line>
-                    </svg>
-                  </button>
-
-                  <div class="volume-slider-wrapper">
-                    <input type="range" id="volumeSlider" min="0" max="1" step="0.02" value="1">
-                  </div>
-
-                  <!-- 300% Audio Booster Toggle Pill -->
-                  <div class="boost-badge" id="boostBadge" title="Click to boost quiet lecture volume up to 300%">
-                    <span id="boostText">100%</span>
-                  </div>
+            <!-- RIGHT DISCOVERY WIDGET RAIL -->
+            <aside class="movies-widget-rail">
+              <!-- WIDGET 1: Top Rated Movies Ranked 1 to 5 -->
+              <div class="widget-card">
+                <div class="widget-header">
+                  <h3 class="widget-title">👑 Top Rated Movies</h3>
+                  <button class="widget-see-all section-see-all-btn" data-collection="top-rated" type="button">See All →</button>
                 </div>
-
-                <!-- Timecode Display -->
-                <div class="time-display">
-                  <span id="currentTime">00:00</span>
-                  <span class="time-sep">/</span>
-                  <span id="durationTime">00:00</span>
-                  <span class="live-pill hidden" id="liveBadge">LIVE</span>
+                <div class="top-rated-ranked-list" id="topRatedWidgetList">
+                  <!-- Populated by JS: Shawshank, Godfather, Interstellar, Fight Club, Pulp Fiction -->
                 </div>
               </div>
 
-              <!-- Right Controls -->
-              <div class="controls-right">
-                <!-- Speed Menu Trigger -->
-                <div class="menu-dropdown-wrapper">
-                  <button class="control-btn" id="btnSpeedMenu" title="Playback Speed">
-                    <span id="currentSpeedText">1.0x</span>
-                  </button>
-                  <div class="dropdown-popover speed-popover" id="speedPopover">
-                    <div class="popover-title">Playback Speed</div>
-                    <div class="speed-grid">
-                      <button class="speed-option" data-speed="0.5">0.5x</button>
-                      <button class="speed-option" data-speed="0.75">0.75x</button>
-                      <button class="speed-option active" data-speed="1.0">1.0x</button>
-                      <button class="speed-option" data-speed="1.25">1.25x</button>
-                      <button class="speed-option" data-speed="1.5">1.5x</button>
-                      <button class="speed-option" data-speed="1.75">1.75x</button>
-                      <button class="speed-option" data-speed="2.0">2.0x</button>
-                      <button class="speed-option" data-speed="2.5">2.5x</button>
-                      <button class="speed-option" data-speed="3.0">3.0x</button>
-                    </div>
-                  </div>
+              <!-- WIDGET 2: Genres 2-Column Outline Grid -->
+              <div class="widget-card">
+                <div class="widget-header">
+                  <h3 class="widget-title">Genres</h3>
+                  <button class="widget-see-all section-see-all-btn" data-collection="all-genres" type="button">See All →</button>
                 </div>
-
-                <!-- Quality Switcher (for HLS / Adaptive streams) -->
-                <div class="menu-dropdown-wrapper" id="qualityMenuWrapper">
-                  <button class="control-btn" id="btnQualityMenu" title="Stream Quality / Resolution">
-                    <span id="currentQualityText">Auto</span>
-                  </button>
-                  <div class="dropdown-popover quality-popover" id="qualityPopover">
-                    <div class="popover-title">Resolution / Quality</div>
-                    <div class="quality-list" id="qualityList">
-                      <button class="quality-option active" data-level="-1">Auto (Best)</button>
-                    </div>
-                  </div>
+                <div class="genres-outline-grid" id="genresOutlineGrid">
+                  <!-- Populated by JS: Action, Adventure, Comedy, Drama, Horror, Sci-Fi, Romance, Thriller, Crime, Animation, Biography, Fantasy -->
                 </div>
+              </div>
 
-                <!-- A-B Loop Repeater Button -->
-                <button class="control-btn" id="btnLoop" title="A-B Loop Repeater ([ Set Point A, ] Set Point B, \ Clear)">
-                  <span class="loop-text-badge" id="loopBadgeText">A-B</span>
-                </button>
-
-                <!-- Video Filter & Eye-Care Shaders Menu -->
-                <div class="menu-dropdown-wrapper" id="filterMenuWrapper">
-                  <button class="control-btn" id="btnFilterMenu" title="Video Filters & Night Invert (Eye-Care)">
+              <!-- WIDGET 3: Create Your Watchlist Promo Banner with Wave Mesh -->
+              <div class="widget-card watchlist-promo-card">
+                <div class="watchlist-promo-inner">
+                  <div class="watchlist-promo-icon-box">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"></path>
+                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
                     </svg>
+                  </div>
+                  <h4 class="watchlist-promo-title">Create Your Watchlist</h4>
+                  <p class="watchlist-promo-desc">Save movies and shows you love, and never miss out!</p>
+                  <button class="btn-promo-start" onclick="navigate('library')" type="button">
+                    <span>Start Now →</span>
                   </button>
-                  <div class="dropdown-popover filter-popover" id="filterPopover">
-                    <div class="popover-title">Video Filters & Eye-Care</div>
-                    <div class="filter-grid">
-                      <button class="filter-option active" data-filter="normal">✨ Normal</button>
-                      <button class="filter-option" data-filter="night-invert">🌙 Night Invert (Dark Slides)</button>
-                      <button class="filter-option" data-filter="high-contrast">💡 High Contrast (Blackboard)</button>
-                      <button class="filter-option" data-filter="warm">👓 Warm Eye-Care</button>
-                      <button class="filter-option" data-filter="grayscale">⬛ Monochrome (B&W)</button>
+                </div>
+                <div class="watchlist-promo-mesh"></div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <!-- --------------------------------------------------------------------
+             VIEW 2: DEDICATED STUDIO PLAYER (#home / #studio)
+             FOR YOUTUBE & LOCAL DEVICE VIDEOS (WITH EXCLUSIVE CUSTOM CONTROLS)
+             -------------------------------------------------------------------- -->
+        <section id="viewHome" class="page-view">
+          <div class="player-page-view">
+            <!-- Studio Header with Dedicated Mode Switcher -->
+            <div class="studio-hub-header">
+              <div class="studio-hub-info">
+                <h2 class="studio-hub-title">⚡ Studio Video Player</h2>
+                <p class="studio-hub-subtitle">Play YouTube videos without ads/watermark or stream your device files with pure custom controls.</p>
+              </div>
+
+              <div class="studio-mode-switcher">
+                <button class="studio-mode-tab active" id="tabModeYt" type="button">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                  <span>YouTube Stream</span>
+                </button>
+                <button class="studio-mode-tab" id="tabModeDevice" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                  <span>Device / Local Video</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- YouTube Stream Input Bar -->
+            <div class="studio-input-section" id="studioYtSection">
+              <div class="global-search-box">
+                <svg class="search-lens-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+                <input 
+                  type="text" 
+                  id="videoUrlInput" 
+                  placeholder="Paste YouTube link (e.g. https://www.youtube.com/watch?v=... or youtu.be/...)" 
+                  autocomplete="off" 
+                  spellcheck="false"
+                />
+                <div class="stream-type-tag hidden" id="streamTypeTag">
+                  <span class="tag-dot"></span>
+                  <span id="streamTypeLabel">YouTube Stream</span>
+                </div>
+                <button class="topbar-action-btn" id="btnPasteClipboard" type="button" style="padding: 6px 14px;">Paste</button>
+                <button class="btn-hero-watch" id="btnLoadUrl" type="button" style="padding: 8px 20px; font-size: 0.84rem;">Play Now</button>
+              </div>
+
+              <!-- Quick Demo 4K YouTube Preset Chips -->
+              <div class="studio-demo-chips">
+                <span class="demo-chips-label">Try 4K Demos:</span>
+                <button class="demo-chip-btn" data-yt="https://www.youtube.com/watch?v=LXb3EKWsInQ" type="button">🌌 4K Cosmic Odyssey</button>
+                <button class="demo-chip-btn" data-yt="https://www.youtube.com/watch?v=1La4QzGeaaQ" type="button">🚀 Interstellar Main Theme</button>
+                <button class="demo-chip-btn" data-yt="https://www.youtube.com/watch?v=jfKfPfyJRdk" type="button">☕ Lo-Fi Chill Beats</button>
+                <button class="demo-chip-btn" data-yt="https://www.youtube.com/watch?v=EngW7tLk6R8" type="button">🏙️ Cyberpunk 4K HDR</button>
+              </div>
+            </div>
+
+            <!-- Device Local Video Upload Bar (Hidden when YT is selected) -->
+            <div class="studio-device-section hidden" id="studioDeviceSection">
+              <label class="studio-dropzone-box" for="localFileInput">
+                <input type="file" id="localFileInput" accept="video/*" hidden>
+                <div class="dropzone-icon-pulse">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                </div>
+                <h3 class="dropzone-title">Click to Browse Video File from PC / Mac</h3>
+                <p class="dropzone-subtitle">or drag and drop video files here. Instant zero-buffering playback.</p>
+                <div class="dropzone-formats">Supports MP4, MKV, WebM, MOV, AVI (100% Private & Local)</div>
+              </label>
+            </div>
+
+            <!-- Legacy movieSearchDropdown cached elements -->
+            <div class="hidden" id="movieSearchDropdown">
+              <span id="movieResultsTitle"></span>
+              <button id="btnCloseMovieResults"></button>
+              <button id="btnBrowseMovies"></button>
+              <div id="movieFilterBar"></div>
+              <div id="movieResultsList"></div>
+            </div>
+
+            <!-- Main Stage Grid (Player + Workspace Sidebar) -->
+            <div class="player-stage-grid" id="playerLayout">
+              <!-- Player Column -->
+              <div class="player-main-column">
+                <div class="omni-player-wrapper" id="playerWrapper" tabindex="0">
+                  <!-- Smart Resume Watch Floating Banner -->
+                  <div class="resume-banner hidden" id="resumeBanner">
+                    <div class="resume-info">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span>Resume playback from <strong id="resumeTimeText">00:00</strong>?</span>
+                    </div>
+                    <div class="resume-actions">
+                      <button class="resume-confirm-btn" id="btnResumeYes">▶ Resume</button>
+                      <button class="resume-dismiss-btn" id="btnResumeNo">✕</button>
+                    </div>
+                  </div>
+
+                  <!-- Media Container -->
+                  <div class="media-container" id="mediaContainer">
+                    <video id="html5Video" playsinline crossorigin="anonymous" preload="metadata">
+                      <track id="subtitlesTrack" kind="subtitles" srclang="en" label="English" default>
+                    </video>
+
+                    <div class="youtube-wrapper hidden" id="youtubeWrapper">
+                      <div id="youtubePlayerContainer" class="youtube-player-frame"></div>
+                      <div class="youtube-gesture-shield" id="youtubeShield" title="Click to Play/Pause, Double-click to Seek"></div>
+                    </div>
+
+                    <iframe 
+                      id="genericIframe" 
+                      class="generic-iframe hidden" 
+                      allowfullscreen 
+                      allow="autoplay; fullscreen; encrypted-media; picture-in-picture; accelerometer; gyroscope"
+                      referrerpolicy="origin"
+                    ></iframe>
+
+                    <!-- Seek Ripples -->
+                    <div class="seek-ripple-overlay" id="seekRippleOverlay">
+                      <div class="seek-ripple ripple-left" id="rippleLeft">
+                        <div class="ripple-icon">◀◀</div>
+                        <span>-10s</span>
+                      </div>
+                      <div class="seek-ripple ripple-right" id="rippleRight">
+                        <div class="ripple-icon">▶▶</div>
+                        <span>+10s</span>
+                      </div>
+                    </div>
+
+                    <!-- Center Flash Icon -->
+                    <div class="center-action-indicator" id="centerIndicator">
+                      <svg id="centerIndicatorIcon" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                      </svg>
+                    </div>
+
+                    <!-- Buffering Spinner -->
+                    <div class="buffering-spinner" id="bufferingSpinner">
+                      <div class="spinner-ring"></div>
+                      <span>Buffering...</span>
+                    </div>
+
+                    <!-- End Video Overlay -->
+                    <div class="video-end-overlay hidden" id="videoEndOverlay">
+                      <div class="end-card">
+                        <h3>Video Completed</h3>
+                        <p id="endVideoTitle">Ready to Replay</p>
+                        <button class="btn-hero-watch" id="btnReplayVideo" style="margin-top: 10px;">Replay Video</button>
+                      </div>
+                    </div>
+
+                    <!-- Drag & Drop Overlay -->
+                    <div class="drag-drop-overlay" id="dragDropOverlay">
+                      <div class="drag-box">
+                        <h3>Drop video file here to stream</h3>
+                        <p>Supports MP4, MKV, WebM, MOV</p>
+                      </div>
+                    </div>
+
+                    <!-- Hero Splash Quick-Start Screen -->
+                    <div class="player-hero-splash" id="playerHeroSplash">
+                      <div class="hero-splash-backdrop"></div>
+                      <div class="hero-splash-content">
+                        <div class="hero-splash-badge">
+                          <span class="hero-pulse-dot"></span>
+                          <span>OMNIPLAYER STUDIO PRO</span>
+                        </div>
+                        <h2 class="hero-splash-title">Ready for Cinema Streaming</h2>
+                        <p class="hero-splash-subtitle">Paste any link above or launch one of these iconic blockbusters:</p>
+                        <div class="hero-quick-chips">
+                          <button class="hero-quick-chip" data-id="550" data-title="Fight Club (1999)" data-type="movie">🍿 Fight Club</button>
+                          <button class="hero-quick-chip" data-id="157336" data-title="Interstellar (2014)" data-type="movie">🌌 Interstellar</button>
+                          <button class="hero-quick-chip" data-id="27205" data-title="Inception (2010)" data-type="movie">🌀 Inception</button>
+                          <button class="hero-quick-chip" data-id="155" data-title="The Dark Knight (2008)" data-type="movie">🦇 The Dark Knight</button>
+                          <button class="hero-quick-chip" data-id="872585" data-title="Oppenheimer (2023)" data-type="movie">⚛️ Oppenheimer</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Controls Overlay -->
+                  <div class="omni-controls-overlay" id="controlsOverlay">
+                    <div class="timeline-container" id="timelineContainer">
+                      <div class="timeline-tooltip" id="timelineTooltip">
+                        <span class="tooltip-time" id="tooltipTime">00:00</span>
+                      </div>
+                      <div class="timeline-track" id="timelineTrack">
+                        <div class="timeline-buffer" id="timelineBuffer"></div>
+                        <div class="timeline-loop-range hidden" id="timelineLoopRange"></div>
+                        <div class="timeline-progress" id="timelineProgress">
+                          <div class="timeline-scrubber-handle"></div>
+                        </div>
+                        <div class="bookmark-dots" id="bookmarkDotsContainer"></div>
+                      </div>
+                    </div>
+
+                    <div class="controls-row">
+                      <div class="controls-left">
+                        <button class="control-btn" id="btnPlayPause" title="Play/Pause (Space)">
+                          <svg id="iconPlay" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                          </svg>
+                          <svg id="iconPause" class="hidden" viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="6" y="4" width="4" height="16"></rect>
+                            <rect x="14" y="4" width="4" height="16"></rect>
+                          </svg>
+                        </button>
+                        <button class="control-btn" id="btnSeekBack" title="Rewind 10s (J / Left Arrow)">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="11 17 6 12 11 7"></polyline>
+                            <polyline points="18 17 13 12 18 7"></polyline>
+                          </svg>
+                        </button>
+                        <button class="control-btn" id="btnSeekFwd" title="Forward 10s (L / Right Arrow)">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="13 17 18 12 13 7"></polyline>
+                            <polyline points="6 17 11 12 6 7"></polyline>
+                          </svg>
+                        </button>
+                        <div class="volume-container">
+                          <button class="control-btn" id="btnMute" title="Mute (M)">
+                            <svg id="iconVolumeHigh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                            </svg>
+                            <svg id="iconVolumeMute" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <line x1="1" y1="1" x2="23" y2="23"></line>
+                              <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                              <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                            </svg>
+                          </button>
+                          <div class="volume-slider-wrap">
+                            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.05" value="1">
+                          </div>
+                        </div>
+                        <div class="time-display">
+                          <span class="time-current" id="currentTime">00:00</span>
+                          <span>/</span>
+                          <span class="time-total" id="durationTime">00:00</span>
+                        </div>
+                        <span class="live-stream-badge hidden" id="liveBadge">LIVE</span>
+                      </div>
+
+                      <div class="controls-right">
+                        <!-- 300% Web Audio Gain Booster -->
+                        <div class="popover-container">
+                          <button class="boost-pill-btn" id="btnAudioBoost" title="Lecture Audio Boost (up to 300%)">
+                            <span>🔊</span>
+                            <span id="boostPillText">100%</span>
+                          </button>
+                          <input type="range" id="audioBoostSlider" min="1" max="3" step="0.1" value="1" hidden>
+                        </div>
+
+                        <!-- A-B Loop Repeater -->
+                        <button class="control-btn" id="btnLoop" title="A-B Loop Repeater ([ and ])">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="17 1 21 5 17 9"></polyline>
+                            <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                            <polyline points="7 23 3 19 7 15"></polyline>
+                            <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+                          </svg>
+                          <span id="loopBadgeText" style="display:none;"></span>
+                        </button>
+                        <button class="hidden" id="btnClearLoop"></button>
+                        <button class="hidden" id="btnBookmark"></button>
+
+                        <!-- Playback Speed Popover -->
+                        <div class="popover-container">
+                          <button class="control-btn" id="btnSpeed" title="Playback Speed">
+                            <span id="currentSpeedText" style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700;">1.0x</span>
+                          </button>
+                          <div class="dropdown-popover" id="speedPopover">
+                            <div class="popover-title">Speed Multiplier</div>
+                            <button class="speed-option" data-speed="0.5">0.5x (Slow)</button>
+                            <button class="speed-option" data-speed="0.75">0.75x</button>
+                            <button class="speed-option active" data-speed="1.0">1.0x (Normal)</button>
+                            <button class="speed-option" data-speed="1.25">1.25x (Recommended)</button>
+                            <button class="speed-option" data-speed="1.5">1.5x (Speed-Watch)</button>
+                            <button class="speed-option" data-speed="1.75">1.75x</button>
+                            <button class="speed-option" data-speed="2.0">2.0x (Double)</button>
+                            <button class="speed-option" data-speed="2.5">2.5x (Sprint)</button>
+                          </div>
+                        </div>
+
+                        <!-- Quality Selector Popover -->
+                        <div class="popover-container" id="qualityMenuWrapper">
+                          <button class="control-btn" id="btnQuality" title="Video Quality">
+                            <span id="currentQualityText" style="font-size: 0.78rem; font-weight: 700;">Auto</span>
+                          </button>
+                          <div class="dropdown-popover" id="qualityPopover">
+                            <div class="popover-title">Select Quality</div>
+                            <div id="qualityList"></div>
+                          </div>
+                        </div>
+
+                        <!-- Video Filter Popover -->
+                        <div class="popover-container">
+                          <button class="control-btn" id="btnFilter" title="Video Filters">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <circle cx="12" cy="12" r="10"></circle>
+                              <path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"></path>
+                            </svg>
+                          </button>
+                          <div class="dropdown-popover" id="filterPopover">
+                            <div class="popover-title">Video Color Filters</div>
+                            <button class="filter-option active" data-filter="normal">✨ Normal</button>
+                            <button class="filter-option" data-filter="night-invert">🌙 Night Invert</button>
+                            <button class="filter-option" data-filter="high-contrast">💡 High Contrast</button>
+                            <button class="filter-option" data-filter="warm">👓 Warm Eye-Care</button>
+                            <button class="filter-option" data-filter="grayscale">⬛ Monochrome</button>
+                          </div>
+                        </div>
+
+                        <!-- Screenshot Snapshot -->
+                        <button class="control-btn" id="btnScreenshot" title="Capture HD Screenshot (S)">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                            <circle cx="12" cy="13" r="4"></circle>
+                          </svg>
+                        </button>
+
+                        <!-- Picture in Picture -->
+                        <button class="control-btn" id="btnPip" title="Picture in Picture (P)">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                            <rect x="12" y="9" width="8" height="6" rx="1" fill="currentColor"></rect>
+                          </svg>
+                        </button>
+
+                        <!-- Theatre Mode -->
+                        <button class="control-btn" id="btnTheatre" title="Theatre Mode (T)">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                            <line x1="9" y1="3" x2="9" y2="21"></line>
+                          </svg>
+                        </button>
+
+                        <!-- Fullscreen -->
+                        <button class="control-btn" id="btnFullscreen" title="Fullscreen (F)">
+                          <svg id="iconEnterFs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                          </svg>
+                          <svg id="iconExitFs" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <!-- Screenshot Snapshot Button -->
-                <button class="control-btn" id="btnScreenshot" title="Capture HD Frame Screenshot (S)">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                    <circle cx="12" cy="13" r="4"></circle>
-                  </svg>
-                </button>
+                <!-- Video Metadata Bar -->
+                <div class="player-meta-bar">
+                  <div class="meta-title-area">
+                    <h2 class="player-video-title" id="videoTitle">Ready to Stream</h2>
+                    <div class="player-badges-row">
+                      <span class="player-source-badge" id="badgeSource">Universal Ready</span>
+                      <span class="player-res-badge" id="badgeRes">1080p Full HD</span>
+                      <span class="player-speed-badge" id="badgeSpeed">1.0x</span>
+                    </div>
+                    <div class="cinema-server-selector hidden" id="cinemaServerSelector">
+                      <span class="server-label">🍿 Cinema Server:</span>
+                      <div class="server-pills-row" id="cinemaServerPills"></div>
+                    </div>
+                  </div>
+                  <div class="topbar-actions">
+                    <label class="topbar-action-btn" title="Add Subtitle (.vtt / .srt)">
+                      <input type="file" id="subtitlesFileInput" accept=".vtt,.srt" hidden>
+                      <span>Subtitles (+SRT)</span>
+                    </label>
+                    <button class="topbar-action-btn" id="btnCopyLink" title="Share Video Link">
+                      <span>Share Link</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
 
-                <!-- Picture in Picture (PiP) -->
-                <button class="control-btn" id="btnPip" title="Picture in Picture (P)">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="2" y="3" width="20" height="14" rx="2"></rect>
-                    <rect x="12" y="9" width="8" height="6" rx="1" fill="currentColor"></rect>
-                  </svg>
-                </button>
+              <!-- Workspace Sidebar: AI Assistant + Notes + History -->
+              <aside class="player-sidebar-hub" id="workspaceSidebar">
+                <div class="sidebar-hub-tabs">
+                  <button class="hub-tab-btn active" data-tab="ai" id="tabBtnAi">
+                    <span>🧠 AI Assistant</span>
+                  </button>
+                  <button class="hub-tab-btn" data-tab="notes" id="tabBtnNotes">
+                    <span>📝 Notes (<span id="notesCount">0</span>)</span>
+                  </button>
+                  <button class="hub-tab-btn" data-tab="history" id="tabBtnHistory">
+                    <span>🕒 History</span>
+                  </button>
+                </div>
 
-                <!-- Theatre Mode Toggle -->
-                <button class="control-btn" id="btnTheatre" title="Cinema / Theatre Mode (T)">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
-                    <line x1="9" y1="3" x2="9" y2="21"></line>
-                  </svg>
-                </button>
+                <!-- Tab 1: AI Assistant Panel -->
+                <div class="hub-tab-content active" id="tabContentAi">
+                  <div class="ai-panel-inner">
+                    <div class="ai-header-badge">
+                      <span>✨ OMNI AI CINEMA ENGINE</span>
+                    </div>
+                    <div class="ai-actions-grid">
+                      <button class="ai-action-card-btn" id="btnAiSummarize" type="button">
+                        <span>📋</span>
+                        <span>Summarize Plot</span>
+                      </button>
+                      <button class="ai-action-card-btn" id="btnAiExplainScenes" type="button">
+                        <span>🎬</span>
+                        <span>Explain Scenes</span>
+                      </button>
+                      <button class="ai-action-card-btn" id="btnAiThemes" type="button">
+                        <span>💡</span>
+                        <span>Key Themes</span>
+                      </button>
+                      <button class="ai-action-card-btn" id="btnAiSimilar" type="button">
+                        <span>🍿</span>
+                        <span>Similar Content</span>
+                      </button>
+                    </div>
 
-                <!-- Fullscreen Toggle -->
-                <button class="control-btn" id="btnFullscreen" title="Fullscreen (F)">
-                  <svg id="iconEnterFs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-                  </svg>
-                  <svg id="iconExitFs" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
-                  </svg>
-                </button>
+                    <!-- AI Response Box -->
+                    <div class="ai-response-box" id="aiResponseBox">
+                      <p>👋 Hello! I am your <strong>OmniPlayer Cinema AI</strong>. Click any prompt above or ask a question to analyze this movie, explain plot twists, summarize characters, or explore key concepts.</p>
+                    </div>
+
+                    <!-- AI Chat Input -->
+                    <form class="ai-chat-input-row" id="aiChatForm">
+                      <input type="text" id="aiChatInput" placeholder="Ask AI about this movie / video..." autocomplete="off">
+                      <button class="ai-send-btn" type="submit">Ask AI</button>
+                    </form>
+                  </div>
+                </div>
+
+                <!-- Tab 2: Timestamped Notes Panel -->
+                <div class="hub-tab-content" id="tabContentNotes">
+                  <div class="notes-panel-inner">
+                    <div class="note-input-box">
+                      <span id="currentNoteTimestamp" style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--accent-highlight);">Timestamp: 00:00</span>
+                      <textarea id="noteTextInput" placeholder="Type timestamped note here..."></textarea>
+                      <button class="note-submit-btn" id="btnSaveNote" type="button">Add Note</button>
+                    </div>
+                    <div class="notes-list" id="notesList"></div>
+                  </div>
+                </div>
+
+                <!-- Tab 3: History & Playlist Panel -->
+                <div class="hub-tab-content" id="tabContentHistory">
+                  <div class="history-panel-inner">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                      <span style="font-size:0.8rem; font-weight:700;">Recent Sessions</span>
+                      <button id="btnClearHistory" class="section-see-all-btn" style="padding:2px 8px; font-size:0.74rem;">Clear</button>
+                    </div>
+                    <div id="historyList"></div>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </section>
+
+        <!-- --------------------------------------------------------------------
+             VIEW 3: DEDICATED MOVIE DETAILS PAGE (#movie/:id)
+             -------------------------------------------------------------------- -->
+        <section id="viewMovieDetails" class="page-view">
+          <div class="movie-details-hero">
+            <img class="details-backdrop-img" id="detailsBackdropImg" src="" alt="Movie Backdrop">
+            <div class="details-overlay-gradient"></div>
+
+            <div class="details-hero-content">
+              <div class="details-poster-wrap">
+                <img class="details-poster-img" id="detailsPosterImg" src="" alt="Movie Poster">
+              </div>
+              <div class="details-info-wrap">
+                <div class="details-tagline" id="detailsTagline"></div>
+                <h1 class="details-title" id="detailsTitle">Movie Title</h1>
+                <div class="details-badges-row">
+                  <span class="details-imdb-pill" id="detailsImdbRating">★ 8.4 IMDb</span>
+                  <span class="details-badge" id="detailsYear">2023</span>
+                  <span class="details-badge" id="detailsRuntime">2h 30m</span>
+                  <span class="details-badge" id="detailsGenres">Action • Sci-Fi</span>
+                  <span class="details-badge" style="color:var(--accent-secondary); border-color:rgba(91,140,255,0.4);">4K UHD</span>
+                </div>
+                <p class="details-synopsis" id="detailsSynopsis"></p>
+                <div class="details-actions-row">
+                  <button class="btn-hero-watch" id="btnDetailsWatchNow" type="button">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    <span>Watch Now</span>
+                  </button>
+                  <button class="btn-hero-watchlist" id="btnDetailsWatchlist" type="button">
+                    <span>+ Add to Watchlist</span>
+                  </button>
+                  <button class="btn-hero-more-info" id="btnDetailsFavorite" type="button">
+                    <span>❤️ Favorite</span>
+                  </button>
+                  <button class="btn-hero-more-info" id="btnDetailsShare" type="button">
+                    <span>🔗 Share</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Video Metadata / Info Bar Below Player -->
-        <div class="video-meta-bar">
-          <div class="meta-main">
-            <h1 class="video-title" id="videoTitle">Ready to stream — Paste any link to start</h1>
-            <div class="video-badges" id="videoBadges">
-              <span class="badge badge-source" id="badgeSource">Universal Ready</span>
-              <span class="badge badge-res" id="badgeRes">HD</span>
-              <span class="badge badge-speed" id="badgeSpeed">1.0x</span>
-            </div>
-            <!-- Dynamic Cinema Server Switcher (Nxsha, AutoEmbed, VidLink, MultiEmbed, VidSrc) -->
-            <div class="cinema-server-selector hidden" id="cinemaServerSelector">
-              <span class="server-selector-label">🍿 Server:</span>
-              <div class="server-pills" id="cinemaServerPills"></div>
-            </div>
+          <!-- Cast & Similar & Reviews Sections -->
+          <div class="details-sections-container">
+            <!-- Cast Carousel -->
+            <section class="discovery-section">
+              <div class="section-header-row">
+                <div class="section-title-wrap">
+                  <span class="section-pulse-indicator"></span>
+                  <h2 class="section-title">Top Cast & Crew</h2>
+                </div>
+              </div>
+              <div class="cast-grid" id="detailsCastGrid"></div>
+            </section>
+
+            <!-- Similar Movies Carousel -->
+            <section class="discovery-section">
+              <div class="section-header-row">
+                <div class="section-title-wrap">
+                  <span class="section-pulse-indicator"></span>
+                  <h2 class="section-title">Similar Recommended Movies</h2>
+                </div>
+              </div>
+              <div class="carousel-wrapper">
+                <button class="carousel-nav-btn prev" data-target="detailsSimilarCarousel">❮</button>
+                <div class="carousel-scroll-track" id="detailsSimilarCarousel"></div>
+                <button class="carousel-nav-btn next" data-target="detailsSimilarCarousel">❯</button>
+              </div>
+            </section>
+
+            <!-- User Community Reviews -->
+            <section class="discovery-section">
+              <div class="section-header-row">
+                <div class="section-title-wrap">
+                  <span class="section-pulse-indicator"></span>
+                  <h2 class="section-title">Audience Reviews & Discussions</h2>
+                </div>
+              </div>
+              <div class="reviews-grid" id="detailsReviewsGrid"></div>
+            </section>
           </div>
+        </section>
 
-          <div class="meta-actions">
-            <!-- Add Subtitles Button -->
-            <label class="meta-action-btn" title="Add Subtitle file (.vtt or .srt)">
-              <input type="file" id="subtitlesFileInput" accept=".vtt,.srt" hidden>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                <line x1="6" y1="15" x2="10" y2="15"></line>
-                <line x1="14" y1="15" x2="18" y2="15"></line>
-              </svg>
-              <span>Subtitles (+SRT)</span>
-            </label>
-
-            <!-- Copy Link / Share -->
-            <button class="meta-action-btn" id="btnCopyLink" title="Copy current video link">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-              </svg>
-              <span>Share Link</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Workspace Hub: Study Notes + History Playlist -->
-      <aside class="workspace-sidebar" id="workspaceSidebar">
-        <!-- Tab Navigation with sliding indicator -->
-        <div class="sidebar-tabs">
-          <button class="tab-btn active" data-tab="notes">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-            </svg>
-            <span>Lecture Notes (<span id="notesCount">0</span>)</span>
-          </button>
-          <button class="tab-btn" data-tab="history">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle>
-              <polyline points="12 6 12 12 16 14"></polyline>
-            </svg>
-            <span>Recent History</span>
-          </button>
-        </div>
-
-        <!-- Notes Panel -->
-        <div class="tab-content active" id="tabContentNotes">
-          <div class="notes-composer">
-            <div class="note-input-row">
-              <span class="note-time-tag" id="currentNoteTimestamp" title="Click to refresh timestamp">00:00</span>
-              <input 
-                type="text" 
-                id="noteTextInput" 
-                placeholder="Type note & press Enter (Auto-stamps timestamp)..." 
-                autocomplete="off"
-              />
-              <button class="add-note-btn" id="btnAddNote" title="Add Note at current time">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="12" y1="5" x2="12" y2="19"></line>
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-              </button>
+        <!-- --------------------------------------------------------------------
+             VIEW 4: TV SHOWS DISCOVERY PAGE (#tv)
+             -------------------------------------------------------------------- -->
+        <section id="viewTv" class="page-view">
+          <div class="movies-page-content">
+            <div class="section-header-row">
+              <div class="section-title-wrap">
+                <span class="section-pulse-indicator"></span>
+                <h1 class="section-title" style="font-size:2rem;">📺 TV Shows & Prime Series</h1>
+              </div>
             </div>
-            <div class="note-tools">
-              <span class="note-helper">Tip: Click any note to jump directly to that moment!</span>
-              <button class="export-notes-btn" id="btnExportNotes" title="Download your notes as Markdown">
-                Export .md
-              </button>
+            <!-- Trending Series Carousel -->
+            <div class="carousel-wrapper">
+              <div class="carousel-scroll-track" id="tvTrendingCarousel"></div>
+            </div>
+            <!-- Top Rated Series Carousel -->
+            <div class="section-header-row" style="margin-top:20px;">
+              <h2 class="section-title">⭐ Critically Acclaimed Series</h2>
+            </div>
+            <div class="carousel-wrapper">
+              <div class="carousel-scroll-track" id="tvTopRatedCarousel"></div>
             </div>
           </div>
+        </section>
 
-          <!-- Notes List -->
-          <div class="notes-list" id="notesList">
-            <div class="empty-placeholder">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M12 20h9"></path>
-                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-              </svg>
-              <p>No notes for this video yet.</p>
-              <span>Add timestamped notes while studying lectures!</span>
+        <!-- --------------------------------------------------------------------
+             VIEW 5: MY LIBRARY / WATCHLIST PAGE (#library)
+             -------------------------------------------------------------------- -->
+        <section id="viewLibrary" class="page-view">
+          <div class="library-page-view">
+            <div class="collection-header-row">
+              <h1 class="collection-title">📚 My Watchlist & Library</h1>
+              <span id="libraryCountText" style="color:var(--text-secondary); font-size:0.9rem;">0 saved titles</span>
+            </div>
+            <div class="collection-full-grid" id="libraryGrid"></div>
+          </div>
+        </section>
+
+        <!-- --------------------------------------------------------------------
+             VIEW 6: FAVORITES PAGE (#favorites)
+             -------------------------------------------------------------------- -->
+        <section id="viewFavorites" class="page-view">
+          <div class="favorites-page-view">
+            <div class="collection-header-row">
+              <h1 class="collection-title">❤️ Favorited Movies & Series</h1>
+              <span id="favoritesCountText" style="color:var(--text-secondary); font-size:0.9rem;">0 titles</span>
+            </div>
+            <div class="collection-full-grid" id="favoritesGrid"></div>
+          </div>
+        </section>
+
+        <!-- --------------------------------------------------------------------
+             VIEW 7: WATCH HISTORY PAGE (#history)
+             -------------------------------------------------------------------- -->
+        <section id="viewHistory" class="page-view">
+          <div class="history-page-view">
+            <div class="collection-header-row">
+              <h1 class="collection-title">🕒 Complete Watch History</h1>
+              <button class="section-see-all-btn" id="btnClearFullHistory" type="button">Clear History</button>
+            </div>
+            <div class="collection-full-grid" id="historyPageGrid"></div>
+          </div>
+        </section>
+
+        <!-- --------------------------------------------------------------------
+             VIEW 8: DEDICATED COLLECTION VIEW (#collection/:type)
+             -------------------------------------------------------------------- -->
+        <section id="viewCollection" class="page-view">
+          <div class="collection-page-view">
+            <div class="collection-header-row">
+              <div>
+                <a href="#movies" class="section-see-all-btn" style="padding-left:0; margin-bottom:8px;">← Back to Movies</a>
+                <h1 class="collection-title" id="collectionPageTitle">Movie Collection</h1>
+              </div>
+              <div class="collection-filters-row">
+                <button class="collection-filter-pill active" data-sort="all">All</button>
+                <button class="collection-filter-pill" data-sort="rating">Top Rated</button>
+                <button class="collection-filter-pill" data-sort="newest">Newest</button>
+              </div>
+            </div>
+            <div class="collection-full-grid" id="collectionGrid"></div>
+          </div>
+        </section>
+
+        <!-- --------------------------------------------------------------------
+             VIEW 9: ANIME, DOWNLOADS & PLAYLISTS PLACEHOLDER VIEWS
+             -------------------------------------------------------------------- -->
+        <section id="viewAnime" class="page-view">
+          <div class="movies-page-content">
+            <h1 class="section-title" style="font-size:2rem; margin-bottom:20px;">⛩️ Anime & Animated Features</h1>
+            <div class="carousel-wrapper">
+              <div class="carousel-scroll-track" id="animeCarousel"></div>
             </div>
           </div>
-        </div>
+        </section>
 
-        <!-- History Panel -->
-        <div class="tab-content" id="tabContentHistory">
-          <div class="history-header">
-            <span>Recently Played</span>
-            <button class="clear-history-btn" id="btnClearHistory">Clear All</button>
+        <section id="viewDownloads" class="page-view">
+          <div class="library-page-view">
+            <div class="empty-state-card">
+              <div class="empty-state-icon">📥</div>
+              <h2 class="empty-state-title">Offline & Local Video Studio</h2>
+              <p class="empty-state-desc">Drag and drop any local video file (MP4, MKV, WebM) into the player or use the file upload button for instant zero-buffering hardware-accelerated playback.</p>
+              <button class="empty-state-btn" onclick="document.getElementById('localFileInput').click()">Choose Local Video</button>
+            </div>
           </div>
-          <div class="history-list" id="historyList">
-            <!-- Dynamically populated from localStorage -->
+        </section>
+
+        <section id="viewPlaylists" class="page-view">
+          <div class="library-page-view">
+            <div class="empty-state-card">
+              <div class="empty-state-icon">📑</div>
+              <h2 class="empty-state-title">Custom Playlists</h2>
+              <p class="empty-state-desc">Organize your movies, lectures and favorite courses into custom playlists for seamless binge-watching.</p>
+              <button class="empty-state-btn" onclick="window.location.hash='#movies'">Browse Catalog</button>
+            </div>
           </div>
-        </div>
-      </aside>
-    </main>
-  </div>
-
-  <!-- Modal 1: Apna College & Course Video Extractor Guide -->
-  <div class="modal-backdrop hidden" id="modalGuide">
-    <div class="modal-card">
-      <div class="modal-header">
-        <div class="modal-title-wrap">
-          <span class="modal-pill">PRO TIP FOR STUDENTS</span>
-          <h2>How to Play Any Video from Apna College or Course Websites</h2>
-        </div>
-        <button class="modal-close-btn" id="btnCloseGuide">✕</button>
-      </div>
-
-      <div class="modal-body guide-content">
-        <p class="guide-intro">
-          Apna College, Physics Wallah, Coursera, Udemy aur lagbhag har educational website videos ko <strong>HLS (.m3u8)</strong> ya direct stream format me deliver karti hai. Is player me unhe chalana 100% possible aur bahut aasan hai!
-        </p>
-
-        <div class="step-card">
-          <div class="step-number">1</div>
-          <div class="step-text">
-            <h4>Apna College / Website par lecture kholo</h4>
-            <p>Apne browser (Chrome, Brave, Edge, etc.) me course lecture page open karo aur video ko 2 second ke liye play karo.</p>
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-number">2</div>
-          <div class="step-text">
-            <h4>Inspect DevTools kholo (F12)</h4>
-            <p>Keyboard par <kbd>F12</kbd> (Mac par <kbd>Cmd + Option + I</kbd>) dabao aur <strong>"Network"</strong> tab par click karo.</p>
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-number">3</div>
-          <div class="step-text">
-            <h4>Filter box me likho: <code>m3u8</code> ya <code>mp4</code></h4>
-            <p>Network tab ke search/filter box me <strong>m3u8</strong> type karo. Aapko <code>master.m3u8</code> ya <code>index.m3u8</code> jaisi file dikhegi.</p>
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-number">4</div>
-          <div class="step-text">
-            <h4>Right click karke "Copy URL" karo</h4>
-            <p>Us file par Right Click karo &rarr; <strong>Copy</strong> &rarr; <strong>Copy link address</strong> (ya Copy URL).</p>
-          </div>
-        </div>
-
-        <div class="step-card highlight-step">
-          <div class="step-number">5</div>
-          <div class="step-text">
-            <h4>OmniPlayer me paste karo aur Play karo!</h4>
-            <p>OmniPlayer ke search bar me link paste karo. Player turant HLS.js engine use karke ultra-smooth 1080p stream shuru kar dega, sath me 300% Audio Booster aur Notes bhi milenge!</p>
-          </div>
-        </div>
-
-        <div class="guide-bonus">
-          <strong>Tip:</strong> Agar YouTube video hai toh direct YouTube link daal do, agar local downloaded file hai toh "Upload File" dabao!
-        </div>
-      </div>
+        </section>
+      </main>
     </div>
   </div>
 
-  <!-- Modal 2: Keyboard Shortcuts Reference -->
-  <div class="modal-backdrop hidden" id="modalShortcuts">
-    <div class="modal-card modal-compact">
-      <div class="modal-header">
-        <h2>⚡ Master Keyboard Shortcuts</h2>
-        <button class="modal-close-btn" id="btnCloseShortcuts">✕</button>
-      </div>
-      <div class="modal-body shortcuts-grid">
-        <div class="shortcut-item"><kbd>Space</kbd> / <kbd>K</kbd> <span>Play / Pause</span></div>
-        <div class="shortcut-item"><kbd>←</kbd> / <kbd>J</kbd> <span>Rewind 10 Seconds</span></div>
-        <div class="shortcut-item"><kbd>→</kbd> / <kbd>L</kbd> <span>Forward 10 Seconds</span></div>
-        <div class="shortcut-item"><kbd>Double Click (Left / Right)</kbd> <span>Seek -10s / +10s</span></div>
-        <div class="shortcut-item"><kbd>↑</kbd> / <kbd>↓</kbd> <span>Volume Up / Down</span></div>
-        <div class="shortcut-item"><kbd>M</kbd> <span>Mute / Unmute</span></div>
-        <div class="shortcut-item"><kbd>F</kbd> <span>Toggle Fullscreen</span></div>
-        <div class="shortcut-item"><kbd>T</kbd> <span>Theatre / Cinema Mode</span></div>
-        <div class="shortcut-item"><kbd>P</kbd> <span>Picture-in-Picture (PiP)</span></div>
-        <div class="shortcut-item"><kbd>S</kbd> <span>Snapshot / HD Screenshot</span></div>
-        <div class="shortcut-item"><kbd>N</kbd> <span>Jump to Note Input</span></div>
-        <div class="shortcut-item"><kbd>B</kbd> <span>Toggle 300% Audio Boost</span></div>
-        <div class="shortcut-item"><kbd>,</kbd> / <kbd>.</kbd> <span>Frame Step (-1 / +1 Frame)</span></div>
-        <div class="shortcut-item"><kbd>[</kbd> / <kbd>]</kbd> <span>Set A-B Loop Points</span></div>
-        <div class="shortcut-item"><kbd>\</kbd> <span>Clear A-B Loop</span></div>
-        <div class="shortcut-item"><kbd>0-9</kbd> <span>Seek to 0% - 90%</span></div>
-      </div>
-    </div>
-  </div>
+  <!-- Toast Notification Overlay -->
+  <div class="toast-notification" id="playerToast"></div>
 
-  <!-- Modal 3: JioHotstar & DRM Information Dialog -->
-  <div class="modal-backdrop hidden" id="modalDrm">
+  <!-- DRM Protection Modal -->
+  <div class="modal-overlay hidden" id="modalDrm">
     <div class="modal-card">
       <div class="modal-header">
-        <div class="modal-title-wrap">
-          <span class="modal-pill" style="color: var(--accent-amber); border-color: rgba(245, 158, 11, 0.3);">DRM PROTECTED STREAM</span>
-          <h2>JioHotstar / DRM Stream Detected</h2>
-        </div>
+        <h3 class="modal-title">🔒 Protected Stream Detected</h3>
         <button class="modal-close-btn" id="btnCloseDrm">✕</button>
       </div>
+      <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.5;">This stream is protected with Widevine/FairPlay DRM encryption. Open directly in an external popout window to watch with authenticated credentials.</p>
+      <button class="btn-hero-watch" id="btnLaunchHotstarPopout" style="width:100%; justify-content:center;">Open in Popout Window</button>
+    </div>
+  </div>
 
-      <div class="modal-body guide-content">
-        <p class="guide-intro">
-          <strong>JioHotstar, Netflix aur Prime Video</strong> commercial OTT platforms hain jo video delivery ke liye <strong>Widevine DRM (Digital Rights Management)</strong> aur proprietary encryption use karte hain.
-        </p>
-
-        <div class="step-card">
-          <div class="step-number">🔒</div>
-          <div class="step-text">
-            <h4>Widevine L1/L3 Hardware Encryption</h4>
-            <p>Inke video chunks browser ke Google CDM aur Hotstar ke private license server ke bina decode nahi hote. Browser security kisi bhi custom player ko ise seedha decrypt karne ki permission nahi deti.</p>
-          </div>
-        </div>
-
-        <div class="step-card highlight-step">
-          <div class="step-number">🚀</div>
-          <div class="step-text">
-            <h4>1-Click Clean Cinema Companion Window</h4>
-            <p>Aap is video ko apne logged-in Hotstar account ke sath bina extra tabs ke ek borderless Cinema Window me launch kar sakte hain:</p>
-            <div style="margin-top: 10px;">
-              <button class="action-btn primary-btn" id="btnLaunchHotstarPopout">
-                <span>Launch in Clean Cinema Window</span>
-              </button>
-            </div>
-          </div>
-        </div>
+  <!-- Course Extractor Guide Modal -->
+  <div class="modal-overlay hidden" id="modalGuide">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">🎓 Course Extractor Guide</h3>
+        <button class="modal-close-btn" id="btnCloseGuide">✕</button>
+      </div>
+      <div style="color:var(--text-secondary); font-size:0.88rem; line-height:1.6; display:flex; flex-direction:column; gap:8px;">
+        <p>1. Open your course platform (e.g. Apna College) in Google Chrome.</p>
+        <p>2. Press <kbd>F12</kbd> (or right-click → Inspect) and switch to the <strong>Network</strong> tab.</p>
+        <p>3. Filter by <code>m3u8</code>.</p>
+        <p>4. Play the video and copy the request URL ending in <code>.m3u8</code>.</p>
+        <p>5. Paste it in OmniPlayer to stream with 300% audio boost and custom speeds!</p>
       </div>
     </div>
   </div>
 
-  <!-- Application Logic -->
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="modal-overlay hidden" id="modalShortcuts">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">⌨ Keyboard Shortcuts</h3>
+        <button class="modal-close-btn" id="btnCloseShortcuts">✕</button>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:0.84rem; color:var(--text-secondary);">
+        <div><kbd>Space</kbd> / <kbd>K</kbd> : Play / Pause</div>
+        <div><kbd>F</kbd> : Fullscreen</div>
+        <div><kbd>J</kbd> / <kbd>←</kbd> : Rewind 10s</div>
+        <div><kbd>L</kbd> / <kbd>→</kbd> : Forward 10s</div>
+        <div><kbd>T</kbd> : Cinema / Theatre</div>
+        <div><kbd>P</kbd> : Picture in Picture</div>
+        <div><kbd>S</kbd> : HD Screenshot</div>
+        <div><kbd>M</kbd> : Mute Volume</div>
+        <div><kbd>[</kbd> / <kbd>]</kbd> : Loop Point A / B</div>
+        <div><kbd>/</kbd> : Focus Smart Search</div>
+      </div>
+    </div>
+  </div>
+
   <script type="module" src="./app.js"></script>
 </body>
 </html>
