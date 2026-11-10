@@ -20,7 +20,28 @@
 3. **60FPS Liquid Smooth Timeline Scrubbing**:
    - Zero-stutter mouse drag scrubbing with instant timecode tooltip and buffered progress bar.
 
-4. **Universal Link Support & Smart Real-Time Inspector**:
+4. **Next-Level Pure Custom YouTube Engine**:
+   - 🚫 **Zero YouTube Controls**: Native YouTube controls, bottom red bar, top title cards aur watermark ko 100% remove karke apna custom player overlay enforce kiya gaya hai.
+   - ⚡ **Full OmniPlayer Control**: YouTube videos par bhi double-click gestures (-10s / +10s ripples), smooth play/pause center flash icon, aur mouse inactivity par automatic fade-out controls chalti hain.
+   - ⏱️ **60FPS High-Precision Progress Ticker**: Real-time YouTube current time, duration aur buffer percentage tracking.
+   - 🎚️ **Native Timeline Scrubbing**: YouTube video par timeline par kahin bhi drag/click karke instant bina lag seek karo.
+   - 🌟 **Dynamic YouTube Ambient Glow**: YouTube video thumbnail se background me matching neon ambilight glow effect.
+   - 🏷️ **Auto Title & Channel Fetching**: Link paste karte hi YouTube API / oEmbed se asli title aur channel name auto-display hota hai.
+   - 🎛️ **Resolution / Quality Selector**: YouTube ke original resolutions (1080p, 720p, 480p, etc.) OmniPlayer ke glassmorphic menu se switch karo.
+   - 🛡️ **Zero Third-Party UI Guarantee**: Player mein sirf aur sirf OmniPlayer ke original custom controls chalte hain. YouTube watermark, top title aur related video tiles 100% physically blocked hain.
+
+5. **Ultra-Transparent Frosted Cinema Recommendation HUD & Movie Stream Engine**:
+   - 🪟 **True Liquid Frosted Glass Transparency**: Recommendation list player stage ke upar ek dam transparent glassmorphism (`backdrop-filter: blur(34px) saturate(210%)`, `rgba(8, 12, 22, 0.45)`) ke saath floating HUD ban kar aati hai, jisse piche ka player aur background cleanly visible rehta hai.
+   - 🍿 **Instant 1-Click "🍿 Recommendations" Button**: Search bar me direct button jisse bina type kiye bhi 1 click me transparent recommendation shelf open/close ho jati hai.
+   - 🏷️ **Quick Category Filter Tabs**: Top par `🔥 All Trending`, `🎬 Blockbusters`, `📺 Top Series`, aur `⭐ 8.4+ Masterpieces` tabs jisse user instant category filter kar sake.
+   - 🖼️ **Rich 3D Floating Poster Cards**: High-res poster image, golden rating pill (`★ 8.4`), release year tag, `4K ULTRA HD` neon badge, aur 2-line storyline preview.
+   - 🎯 **Exact Match Prioritization**: Exact match hone wali movie list mein sabse upar `🎯 Exact Match` badge aur pulsating emerald live dot ke saath aati hai.
+   - ⚡ **Dedicated "▶ Stream Movie / Series" Gradient Pill**: Card ya button click karte hi movie seedhe cinema mode me load ho jati hai.
+   - 🎬 **Hero Stage Quick-Start HUD**: Initial player stage par cyber-cinema ambient card with 5 instant quick-stream blockbuster chips (*Fight Club, Interstellar, Inception, The Dark Knight, Oppenheimer*).
+   - 🛡️ **Intelligent Controls Separation**: Movie embeds par website ke native controls 100% active rehte hain, jabki YouTube aur local files par OmniPlayer ke apne custom sleek controls enforce hote hain.
+   - 🔀 **Multi-Server Switcher**: Player ke niche 5 cinema servers (Nxsha, AutoEmbed, VidLink, MultiEmbed, VidSrc) se 1-click fallback streaming.
+
+6. **Universal Link Support & Smart Real-Time Inspector**:
    - 📺 **YouTube**: Direct links, Shorts, embeds.
    - 🎓 **Apna College / Course Websites**: Native HLS (`.m3u8`) streaming with adaptive resolution selector.
    - 🎞️ **Direct Video Streams**: MP4, WebM, OGG, MOV.
